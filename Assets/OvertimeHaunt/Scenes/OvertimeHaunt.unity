@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 190446183}
   - component: {fileID: 190446184}
   - component: {fileID: 190446185}
+  - component: {fileID: 190446186}
   m_Layer: 6
   m_Name: Wisp
   m_TagString: Untagged
@@ -420,7 +421,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  isChasing: 0
 --- !u!58 &190446184
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -471,6 +471,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 5
   maxHealth: 5
+--- !u!114 &190446186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190446177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df321ee36ce67e4fa0b82dfa1b5fa6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &191497101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,7 +1597,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 927426693}
-  weaponRange: 0.5
+  weaponRange: 0.71
+  knockbackForce: 50
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
