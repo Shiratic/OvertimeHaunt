@@ -4,7 +4,14 @@ using UnityEngine;
 public class Enemy_Movement : MonoBehaviour
 {
     public float speed;
+    public float attackRange = 2;
+    public float attackCooldown = 2;
+    public float playerDetectRange = 5;
+    public Transform detectionPoint;
+    public LayerMask playerLayer;
+
     //public bool isChasing;
+    private float attackCooldownTimer;
     private int facingDirection = -1;
 
     private Rigidbody2D rb;
@@ -24,6 +31,12 @@ public class Enemy_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckForPlayer();
+        if (attackCooldownTimer > 0)
+        {
+            attackCooldownTimer -= Time.deltaTime;
+        }
+
         if (enemyState != EnemyState.Knockback)
         {
 
@@ -32,15 +45,27 @@ public class Enemy_Movement : MonoBehaviour
 
             if (enemyState == EnemyState.Chasing)
             {
-                if (player.position.x > transform.position.x && facingDirection == -1 ||
-                    player.position.x < transform.position.x && facingDirection == 1)
-                {
-                    Flip();
-                }
-                Vector2 direction = (player.position - transform.position).normalized;
-                rb.linearVelocity = direction * speed;
+                Chase();
+            }
+            else if (enemyState == EnemyState.Attacking)
+            {
+
             }
         }
+    }
+
+    void Chase()
+    {
+ 
+
+
+        if (player.position.x > transform.position.x && facingDirection == -1 ||
+                   player.position.x < transform.position.x && facingDirection == 1)
+        {
+            Flip();
+        }
+        Vector2 direction = (player.position - transform.position).normalized;
+        rb.linearVelocity = direction * speed;
     }
 
     void Flip()
@@ -49,40 +74,51 @@ public class Enemy_Movement : MonoBehaviour
         transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void CheckForPlayer()
     {
-        if (collision.gameObject.tag == "Player")
+        Collider2D[] hits = Physics2D.OverlapCircleAll(detectionPoint.position, playerDetectRange, playerLayer);
+
+        if (hits.Length > 0)
         {
-            if(player == null)
+            player = hits[0].transform;
+
+            if (Vector2.Distance(transform.position, player.position) <= attackRange && attackCooldownTimer <= 0)
             {
-                player = collision.transform;
+                attackCooldownTimer = attackCooldown;
+                ChangeState(EnemyState.Attacking);
             }
-            
-            //isChasing = true;
-            ChangeState(EnemyState.Chasing);
+
+            else if (Vector2.Distance(transform.position, player.position) > attackRange)
+            {
+                ChangeState(EnemyState.Chasing);
+            }
+        }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+            ChangeState(EnemyState.Idle);
         }
         
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            rb.linearVelocity = Vector2.zero;
-            //isChasing = false;
-            ChangeState(EnemyState.Idle);
-        }
-    }
 
     public void ChangeState(EnemyState newState)
     {
         enemyState = newState;
     }
 
-    public enum EnemyState
+    private void OnDrawGizmosSelected()
     {
-        Idle,
-        Chasing,
-        Knockback
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(detectionPoint.position, playerDetectRange);
     }
+
+}
+
+public enum EnemyState
+{
+    Idle,
+    Chasing,
+    Knockback,
+    Attacking
 }

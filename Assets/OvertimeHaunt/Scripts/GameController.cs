@@ -10,6 +10,13 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) // Press 'R' to restart
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Debug.Log("Restart Scene!");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) // Press 'esc' to quit game
+        {
+            Application.Quit();
+            Debug.Log("Quit Game!");
         }
     }
 }

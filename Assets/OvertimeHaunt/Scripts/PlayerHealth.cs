@@ -16,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
         {
             playerSr.enabled = false;
             playerMovement.enabled = false;
+            Debug.Log("You Died.");
         }
     }
 }

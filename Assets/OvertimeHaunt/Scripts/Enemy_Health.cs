@@ -17,11 +17,13 @@ public class Enemy_Health : MonoBehaviour
         if(currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
+            Debug.Log("Enemy HP: " + currentHealth);
         }
 
         else if (currentHealth <= 0)
         {
             Destroy(gameObject);
+            Debug.Log("Enemy Dead");
         }
     }
 }
