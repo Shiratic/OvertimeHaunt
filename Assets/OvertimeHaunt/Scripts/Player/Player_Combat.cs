@@ -10,11 +10,13 @@ public class Player_Combat : MonoBehaviour
     public float stunTime = .3f;
     public LayerMask enemyLayer;
     public int damage = 1;
+    [SerializeField] AudioClip _attackSound = null;
 
     public Animator anim;
 
     public void Attack()
     {
+        AudioHelper.PlayClip2D(_attackSound, 0.1f);
         anim.SetBool("isAttacking", true);
 
       

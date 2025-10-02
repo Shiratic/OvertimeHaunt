@@ -1620,6 +1620,7 @@ MonoBehaviour:
   player_Combat: {fileID: 428493108}
   crossHair: {fileID: 818734828}
   dashSpeed: 10
+  _dashSound: {fileID: 8300000, guid: a7186d9a04fb7c844b11faf0a84948bc, type: 3}
   dashLength: 0.5
   dashCooldown: 1
 --- !u!50 &428493104
@@ -1784,6 +1785,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   damage: 1
+  _attackSound: {fileID: 8300000, guid: 6f25afd72f64345499451576f06f173e, type: 3}
   anim: {fileID: 428493106}
 --- !u!114 &428493109
 MonoBehaviour:
@@ -1801,6 +1803,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5490555488118812765, guid: 9821920ddb474bb43bf07ca787e52f1d, type: 3}
   crossHair: {fileID: 818734828}
   anim: {fileID: 0}
+  _shootSound: {fileID: 8300000, guid: a9646063d7f38d1478f90a9a06354edf, type: 3}
   shootCooldown: 0.5
 --- !u!1 &589090179
 GameObject:
@@ -1890,7 +1893,7 @@ Transform:
   m_GameObject: {fileID: 589090179}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.225913, y: -0.17262137, z: -2.098321}
+  m_LocalPosition: {x: -2.4768057, y: 1.0171187, z: -2.098321}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6242,6 +6245,10 @@ PrefabInstance:
       propertyPath: healAmount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3268582166091503607, guid: 06cd899cb3d5003498f253602b7335b2, type: 3}
+      propertyPath: _healthPickUp
+      value: 
+      objectReference: {fileID: 8300000, guid: c4ba86e6fcaaddc4a93ca4d27f85ca01, type: 3}
     - target: {fileID: 3268582166091503607, guid: 06cd899cb3d5003498f253602b7335b2, type: 3}
       propertyPath: _healthParticle
       value: 

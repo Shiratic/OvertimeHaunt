@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isKnockedBack;
     private float activeMoveSpeed;
     public float dashSpeed;
+    [SerializeField] AudioClip _dashSound = null;
 
     public float dashLength = .5f, dashCooldown = 1f;
 
@@ -84,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (dashCooldownCounter <= 0) 
                 {
+                    AudioHelper.PlayClip2D(_dashSound, 0.1f);
                     activeMoveSpeed = dashSpeed;
                     dashCounter = dashLength;
                 }

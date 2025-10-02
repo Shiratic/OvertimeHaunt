@@ -6,6 +6,7 @@ public class Player_Gun : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject crossHair;   // assign in inspector
     public Animator anim;          // player animator
+    [SerializeField] AudioClip _shootSound = null;
 
     public float shootCooldown = 0.5f;
     private float shootTimer;
@@ -22,6 +23,7 @@ public class Player_Gun : MonoBehaviour
 
     public void Shoot()
     {
+        AudioHelper.PlayClip2D(_shootSound, 0.1f);
         Vector2 shootDir = (crossHair.transform.position - launchPoint.position).normalized;
 
         // Spawn slightly forward in shoot direction

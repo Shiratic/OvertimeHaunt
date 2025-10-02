@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healAmount: 1
   _healthParticle: {fileID: 0}
+  _healthPickUp: {fileID: 0}
 --- !u!1 &7833092979959045475
 GameObject:
   m_ObjectHideFlags: 0
