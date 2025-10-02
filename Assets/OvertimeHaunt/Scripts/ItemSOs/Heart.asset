@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 135c9a77c8f70c34384ca49ad8b2d0ea, type: 3}
+  m_Name: Heart
+  m_EditorClassIdentifier: 
+  itemName: Heart
+  itemDescription: this gives you 1 heart
+  icon: {fileID: 21300000, guid: 5081aa4d28524504bb68c5aa30a9bee7, type: 3}

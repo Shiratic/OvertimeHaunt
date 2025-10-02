@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     public Player_Combat player_Combat;
 
     public GameObject crossHair;
-    
 
     private bool isKnockedBack;
     private float activeMoveSpeed;
@@ -43,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
         {
             player_Combat.Attack();
         }
+
+
 
         // --- Crosshair follow mouse ---
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
