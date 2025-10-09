@@ -1,0 +1,32 @@
+.header {
+    font-size: 200px;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/OvertimeHaunt/Fonts/UniSans-Trial-Bold.otf?fileID=12800000&guid=6c4d9d1002c128145862a60fb29c6193&type=3#UniSans-Trial-Bold");
+    align-self: center;
+}
+
+.button {
+    font-size: 80px;
+    width: 440px;
+    height: 220px;
+    align-self: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-image: url("project://database/Assets/OvertimeHaunt/Sprites/Button.png?fileID=2800000&guid=ce76eb1d56483024a852e0d3e6287add&type=3#Button");
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
+    margin-top: 50px;
+    -unity-font-definition: url("project://database/Assets/OvertimeHaunt/Fonts/UniSans-Trial-Bold.otf?fileID=12800000&guid=6c4d9d1002c128145862a60fb29c6193&type=3#UniSans-Trial-Bold");
+    transition-duration: 0.35s;
+}
+
+.backgroundImage {
+}
+
+.button:hover {
+    scale: 1.1 1.1;
+    background-color: rgba(255, 255, 255, 0);
+    -unity-background-image-tint-color: rgb(88, 231, 201);
+}

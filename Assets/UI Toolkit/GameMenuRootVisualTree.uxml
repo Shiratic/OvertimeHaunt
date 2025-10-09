@@ -1,0 +1,5 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:Template name="PauseMenuVisualTree" src="project://database/Assets/UI%20Toolkit/PauseMenuVisualTree.uxml?fileID=9197481963319205126&amp;guid=eebb9ad9da865d041a1eafbf24d3592e&amp;type=3#PauseMenuVisualTree" />
+    <Style src="project://database/Assets/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=5bdda29ffe2d24643823f0cb83a89d01&amp;type=3#MainMenuStyle" />
+    <engine:Instance template="PauseMenuVisualTree" name="PauseMenuVisualTree" style="display: none;" />
+</engine:UXML>

@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/OvertimeHaunt/Scenes/OvertimeHaunt.unity
     guid: 06af44f9350403e4f8f1c9c6c76d51bf
+  - enabled: 1
+    path: Assets/OvertimeHaunt/Scenes/MainMenu.unity
+    guid: 7689eb233c39a2245aa7525e8c85e902
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
