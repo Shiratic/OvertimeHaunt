@@ -16,14 +16,17 @@ public class Enemy_Movement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Transform player;
+    private Animator anim;
 
     private EnemyState enemyState, newState;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ChangeState(EnemyState.Idle);
+        
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        ChangeState(EnemyState.Idle);
     }
 
 
@@ -41,25 +44,27 @@ public class Enemy_Movement : MonoBehaviour
         {
 
 
-
-
             if (enemyState == EnemyState.Chasing)
             {
                 Chase();
             }
             else if (enemyState == EnemyState.Attacking)
             {
-
+                rb.linearVelocity = Vector2.zero;
             }
         }
     }
 
     void Chase()
     {
- 
+        if (Vector2.Distance(transform.position, player.transform.position) <= attackRange && attackCooldownTimer <= 0)
+        {
+            attackCooldownTimer = attackCooldown;
+            ChangeState(EnemyState.Attacking);
+        }
 
 
-        if (player.position.x > transform.position.x && facingDirection == -1 ||
+        else if (player.position.x > transform.position.x && facingDirection == -1 ||
                    player.position.x < transform.position.x && facingDirection == 1)
         {
             Flip();
@@ -88,7 +93,7 @@ public class Enemy_Movement : MonoBehaviour
                 ChangeState(EnemyState.Attacking);
             }
 
-            else if (Vector2.Distance(transform.position, player.position) > attackRange)
+            else if (Vector2.Distance(transform.position, player.position) > attackRange && enemyState != EnemyState.Attacking)
             {
                 ChangeState(EnemyState.Chasing);
             }
@@ -104,7 +109,26 @@ public class Enemy_Movement : MonoBehaviour
 
     public void ChangeState(EnemyState newState)
     {
+        //Exit the current animation
+        if (enemyState == EnemyState.Idle)
+            anim.SetBool("isIdle", false);
+        else if (enemyState == EnemyState.Chasing)
+            anim.SetBool("isChasing", false);
+        else if (enemyState == EnemyState.Attacking)
+            anim.SetBool("isAttacking", false);
+        else if (enemyState == EnemyState.Knockback)
+            anim.SetBool("isDamaged", false);
+
         enemyState = newState;
+
+        if (enemyState == EnemyState.Idle)
+            anim.SetBool("isIdle", true);
+        else if (enemyState == EnemyState.Chasing)
+            anim.SetBool("isChasing", true);
+        else if (enemyState == EnemyState.Attacking)
+            anim.SetBool("isAttacking", true);
+        else if (enemyState == EnemyState.Knockback)
+            anim.SetBool("isDamaged", true);
     }
 
     private void OnDrawGizmosSelected()
