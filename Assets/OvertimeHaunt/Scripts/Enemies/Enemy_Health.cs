@@ -5,23 +5,27 @@ public class Enemy_Health : MonoBehaviour
     public int currentHealth;
     public int maxHealth;
 
-    public void Start()
+    private GameController _gameController;
+
+    void Start()
     {
         currentHealth = maxHealth;
+        _gameController = FindObjectOfType<GameController>();
     }
 
-    public void ChangeHealth( int amount)
+    public void ChangeHealth(int amount)
     {
         currentHealth += amount;
 
-        if(currentHealth > maxHealth)
+        if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
-            Debug.Log("Enemy HP: " + currentHealth);
         }
-
         else if (currentHealth <= 0)
         {
+            if (_gameController != null)
+                _gameController.EnemyDefeated();
+
             Destroy(gameObject);
             Debug.Log("Enemy Dead");
         }

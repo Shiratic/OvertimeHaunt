@@ -4,15 +4,84 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 public class GameController : MonoBehaviour
 {
+    private GameState _currentState = GameState.Playing;
+
+    int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
     //private VisualElement _gameplayMenuVisualTree;
     private VisualElement _pauseMenuVisualTree;
 
+    private Label _objectiveLabel;
+    private Label _enemiesLeftLabel;
+
     private Button _quitButton;
     private Button _resumeButton;
+
+
+    private VisualElement _loseMenuVisualTree;
+    private Button _loseRetryButton;
+    private Button _loseQuitButton;
+
+    private VisualElement _winMenuVisualTree;
+    private Button _winRetryButton;
+    private Button _winQuitButton;
+
+
     private List<Button> _buttons = new List<Button>();
 
     private AudioSource _audioSource;
 
+    private int _totalEnemies;
+    private int _enemiesRemaining;
+
+
+
+    void Start()
+    {
+        // Existing code to find enemies
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        _totalEnemies = enemies.Length;
+        _enemiesRemaining = _totalEnemies;
+
+        // Find UI Document for the objective display
+        UIDocument objectiveDoc = GameObject.Find("ObjectiveUI").GetComponent<UIDocument>();
+        VisualElement root = objectiveDoc.rootVisualElement;
+
+        // Get the label elements
+        _objectiveLabel = root.Q<Label>("ObjectiveLabel");
+        _enemiesLeftLabel = root.Q<Label>("EnemiesLeftLabel");
+
+        // Initialize text
+        UpdateEnemyUI();
+    }
+
+    private void UpdateEnemyUI()
+    {
+        if (_objectiveLabel != null)
+            _objectiveLabel.text = "Objective: Defeat all enemies";
+
+        if (_enemiesLeftLabel != null)
+            _enemiesLeftLabel.text = $"Enemies Left: {_enemiesRemaining}";
+    }
+
+
+    public void EnemyDefeated()
+    {
+        _enemiesRemaining--;
+        UpdateEnemyUI();
+
+        if (_enemiesRemaining <= 0 && _currentState == GameState.Playing)
+        {
+            AllEnemiesDefeated();
+        }
+    }
+
+    private void AllEnemiesDefeated()
+    {
+        Debug.Log("All enemies defeated! You win!");
+        UpdateEnemyUI();
+        DisplayWinMenu();
+        
+    }
     private void Awake()
     {
 
@@ -21,6 +90,12 @@ public class GameController : MonoBehaviour
 
         //_gameplayMenuVisualTree = root.Q("GameplayMenuVisualTree");
         _pauseMenuVisualTree = root.Q("PauseMenuVisualTree");
+        _winMenuVisualTree = root.Q("WinMenuVisualTree");
+        _loseMenuVisualTree = root.Q("LoseMenuVisualTree");
+
+        _objectiveLabel = root.Q<Label>("ObjectiveLabel");
+        _enemiesLeftLabel = root.Q<Label>("EnemyCountLabel");
+
 
 
         _quitButton = root.Q("QuitButton") as Button;
@@ -28,6 +103,19 @@ public class GameController : MonoBehaviour
 
         _resumeButton = root.Q("ResumeButton") as Button;
         _resumeButton.RegisterCallback<ClickEvent>(OnResumeButtonClick);
+
+        _winQuitButton = root.Q("WinQuitButton") as Button;
+        _winQuitButton.RegisterCallback<ClickEvent>(OnWinQuitButtonClick);
+
+        _winRetryButton = root.Q("WinRetryButton") as Button;
+        _winRetryButton.RegisterCallback<ClickEvent>(OnWinRetryButtonClick);
+
+        _loseQuitButton = root.Q("LoseQuitButton") as Button;
+        _loseQuitButton.RegisterCallback<ClickEvent>(OnLoseQuitButtonClick);
+
+        _loseRetryButton = root.Q("LoseRetryButton") as Button;
+        _loseRetryButton.RegisterCallback<ClickEvent>(OnLoseRetryButtonClick);
+
 
         _buttons = root.Query<Button>().ToList();
         foreach (Button button in _buttons)
@@ -37,13 +125,15 @@ public class GameController : MonoBehaviour
 
         //_gameplayMenuVisualTree.style.display = DisplayStyle.Flex;
         _pauseMenuVisualTree.style.display = DisplayStyle.None;
+        _winMenuVisualTree.style.display = DisplayStyle.None;
+        _loseMenuVisualTree.style.display = DisplayStyle.None;
 
 
     }
 
      void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && _currentState == GameState.Playing)
         {
             OpenPauseMenu();
         }
@@ -53,8 +143,12 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("Activate Pause Menu!");
 
-       // _gameplayMenuVisualTree.style.display = DisplayStyle.None;
         _pauseMenuVisualTree.style.display = DisplayStyle.Flex;
+        _currentState = GameState.Paused;
+   
+        UnityEngine.Cursor.visible = true;
+        // Optional: freeze game time
+        Time.timeScale = 0f;
     }
 
     private void OnQuitButtonClick(ClickEvent evt)
@@ -62,14 +156,82 @@ public class GameController : MonoBehaviour
 
         SceneManager.LoadScene("MainMenu");
         Debug.Log("Quit!");
+
+        Time.timeScale = 1f;
     }
 
     private void OnResumeButtonClick(ClickEvent evt)
     {
         Debug.Log("Resume!");
-
-       // _gameplayMenuVisualTree.style.display = DisplayStyle.Flex;
         _pauseMenuVisualTree.style.display = DisplayStyle.None;
+        _currentState = GameState.Playing;
+
+        // Optional: unfreeze game time
+        Time.timeScale = 1f;
+    }
+
+    public void DisplayWinMenu()
+    {
+        _winMenuVisualTree.style.display = DisplayStyle.Flex;
+        _currentState = GameState.Won;
+
+        if (_objectiveLabel != null)
+            _objectiveLabel.style.display = DisplayStyle.None;
+        if (_enemiesLeftLabel != null)
+            _enemiesLeftLabel.style.display = DisplayStyle.None;
+
+        UnityEngine.Cursor.visible = true;
+        // Optional: freeze game
+        Time.timeScale = 0f;
+    }
+
+    private void OnWinRetryButtonClick(ClickEvent evt)
+    {
+        _winMenuVisualTree.style.display = DisplayStyle.None;
+        SceneManager.LoadScene(currentSceneIndex);
+        Time.timeScale = 1f;
+    }
+
+    private void OnWinQuitButtonClick(ClickEvent evt)
+    {
+
+        SceneManager.LoadScene("MainMenu");
+        Debug.Log("Quit!");
+
+        Time.timeScale = 1f;
+    }
+
+    public void DisplayLoseMenu()
+    {
+        _loseMenuVisualTree.style.display = DisplayStyle.Flex;
+        _currentState = GameState.Lost;
+
+        if (_objectiveLabel != null)
+            _objectiveLabel.style.display = DisplayStyle.None;
+        if (_enemiesLeftLabel != null)
+            _enemiesLeftLabel.style.display = DisplayStyle.None;
+
+        UnityEngine.Cursor.visible = true;
+
+        // Optional: freeze game
+        Time.timeScale = 0f;
+    }
+
+    private void OnLoseRetryButtonClick(ClickEvent evt)
+    {
+        _loseMenuVisualTree.style.display = DisplayStyle.None;
+        SceneManager.LoadScene(currentSceneIndex);
+        Time.timeScale = 1f;
+
+    }
+
+    private void OnLoseQuitButtonClick(ClickEvent evt)
+    {
+
+        SceneManager.LoadScene("MainMenu");
+        Debug.Log("Quit!");
+
+        Time.timeScale = 1f;
     }
 
     private void OnAnyButtonClick(ClickEvent evt)
@@ -87,4 +249,13 @@ public class GameController : MonoBehaviour
             button.UnregisterCallback<ClickEvent>(OnAnyButtonClick);
         }
     }
+
+    public enum GameState
+    {
+        Playing,
+        Paused,
+        Won,
+        Lost
+    }
+
 }

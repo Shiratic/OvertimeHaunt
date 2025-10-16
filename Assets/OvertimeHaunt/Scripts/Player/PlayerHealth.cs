@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [SerializeField] private GameController _gameController;
+
     public int currentHealth;
     public int maxHealth;
 
@@ -16,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
         {
             playerSr.enabled = false;
             playerMovement.enabled = false;
+            _gameController.DisplayLoseMenu();
             Debug.Log("You Died.");
         }
     }
