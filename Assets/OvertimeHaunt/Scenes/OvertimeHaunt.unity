@@ -743,6 +743,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!4 &127556526
 Transform:
   m_ObjectHideFlags: 0
@@ -838,6 +840,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!4 &167911160
 Transform:
   m_ObjectHideFlags: 0
@@ -1140,6 +1144,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  roamSpeed: 2
+  roamRadius: 5
+  idleTime: 2
   attackRange: 1
   attackCooldown: 2
   playerDetectRange: 1.5
@@ -1147,6 +1154,10 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallCheckDistance: 0.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!58 &190446184
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1198,6 +1209,8 @@ MonoBehaviour:
   currentHealth: 5
   maxHealth: 5
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!114 &190446186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1244,7 +1257,7 @@ GameObject:
   - component: {fileID: 191497105}
   - component: {fileID: 191497104}
   - component: {fileID: 191497103}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5087,6 +5100,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!4 &347866835
 Transform:
   m_ObjectHideFlags: 0
@@ -5798,7 +5813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 927426693}
-  weaponRange: 0.71
+  weaponRange: 0.4
   knockbackForce: 50
   knockbackTime: 0.15
   stunTime: 1
@@ -6082,6 +6097,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!4 &473798445
 Transform:
   m_ObjectHideFlags: 0
@@ -6295,6 +6312,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!4 &506547099
 Transform:
   m_ObjectHideFlags: 0
@@ -7083,6 +7102,8 @@ MonoBehaviour:
   currentHealth: 5
   maxHealth: 5
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!58 &647350133
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -7132,6 +7153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  roamSpeed: 2
+  roamRadius: 5
+  idleTime: 2
   attackRange: 1
   attackCooldown: 2
   playerDetectRange: 1.5
@@ -7139,6 +7163,10 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallCheckDistance: 0.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &647350135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8654,7 +8682,7 @@ Transform:
   m_GameObject: {fileID: 997378385}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.755, y: -0.017, z: 0}
+  m_LocalPosition: {x: 0.5, y: -0.017, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9011,6 +9039,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!4 &1097287363
 Transform:
   m_ObjectHideFlags: 0
@@ -9342,6 +9372,8 @@ MonoBehaviour:
   currentHealth: 5
   maxHealth: 5
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!58 &1185210199
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -9391,6 +9423,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  roamSpeed: 2
+  roamRadius: 5
+  idleTime: 2
   attackRange: 1
   attackCooldown: 2
   playerDetectRange: 1.5
@@ -9398,6 +9433,10 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallCheckDistance: 0.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &1185210201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9633,6 +9672,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!4 &1194013226
 Transform:
   m_ObjectHideFlags: 0
@@ -9728,6 +9769,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!4 &1202677093
 Transform:
   m_ObjectHideFlags: 0
@@ -9823,6 +9866,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!4 &1215777077
 Transform:
   m_ObjectHideFlags: 0
@@ -9913,6 +9958,8 @@ MonoBehaviour:
   currentHealth: 5
   maxHealth: 5
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!58 &1231956245
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -9962,6 +10009,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  roamSpeed: 2
+  roamRadius: 5
+  idleTime: 2
   attackRange: 1
   attackCooldown: 2
   playerDetectRange: 1.5
@@ -9969,6 +10019,10 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallCheckDistance: 0.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &1231956247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10370,6 +10424,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!4 &1379917260
 Transform:
   m_ObjectHideFlags: 0
@@ -10460,6 +10516,8 @@ MonoBehaviour:
   currentHealth: 15
   maxHealth: 15
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!58 &1381715192
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10509,6 +10567,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  roamSpeed: 2
+  roamRadius: 5
+  idleTime: 2
   attackRange: 4
   attackCooldown: 2
   playerDetectRange: 8.81
@@ -10516,6 +10577,10 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallCheckDistance: 0.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &1381715194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10746,6 +10811,8 @@ MonoBehaviour:
   currentHealth: 5
   maxHealth: 5
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!58 &1387567311
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10795,6 +10862,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  roamSpeed: 2
+  roamRadius: 5
+  idleTime: 2
   attackRange: 1
   attackCooldown: 2
   playerDetectRange: 1.5
@@ -10802,6 +10872,10 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallCheckDistance: 0.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &1387567313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11507,6 +11581,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!4 &1508252259
 Transform:
   m_ObjectHideFlags: 0
@@ -12585,6 +12661,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!4 &1741991600
 Transform:
   m_ObjectHideFlags: 0
@@ -23335,6 +23413,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!4 &1917276576
 Transform:
   m_ObjectHideFlags: 0
@@ -23643,6 +23723,8 @@ MonoBehaviour:
   currentHealth: 5
   maxHealth: 5
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!58 &1957481677
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -23692,6 +23774,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  roamSpeed: 2
+  roamRadius: 5
+  idleTime: 2
   attackRange: 1
   attackCooldown: 2
   playerDetectRange: 1.5
@@ -23699,6 +23784,10 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallCheckDistance: 0.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &1957481679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24047,6 +24136,8 @@ MonoBehaviour:
   currentHealth: 5
   maxHealth: 5
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!58 &1994365199
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -24096,6 +24187,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  roamSpeed: 2
+  roamRadius: 5
+  idleTime: 2
   attackRange: 1
   attackCooldown: 2
   playerDetectRange: 1.5
@@ -24103,6 +24197,10 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallCheckDistance: 0.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &1994365201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24383,6 +24481,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!61 &2019655877
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -24702,6 +24802,8 @@ MonoBehaviour:
   currentHealth: 2
   maxHealth: 2
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!4 &2083756836
 Transform:
   m_ObjectHideFlags: 0
@@ -24823,6 +24925,8 @@ MonoBehaviour:
   currentHealth: 5
   maxHealth: 5
   isBoss: 0
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!58 &2101091202
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -24872,6 +24976,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  roamSpeed: 2
+  roamRadius: 5
+  idleTime: 2
   attackRange: 1
   attackCooldown: 2
   playerDetectRange: 1.5
@@ -24879,6 +24986,10 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+  wallCheckDistance: 0.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &2101091204
 MonoBehaviour:
   m_ObjectHideFlags: 0

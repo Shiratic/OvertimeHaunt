@@ -10,6 +10,9 @@ public class RoomLoader : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!collision.CompareTag("Player"))
+            return;
+
         // Activate all doors
         foreach (GameObject door in _doorsToActivate)
         {

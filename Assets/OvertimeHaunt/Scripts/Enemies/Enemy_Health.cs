@@ -1,11 +1,19 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Enemy_Health : MonoBehaviour
 {
+    [Header("Health Settings")]
     public int currentHealth;
     public int maxHealth;
     public bool isBoss = false; // 👑 assign true for boss enemies
 
+    [Header("Damage Flash Settings")]
+    [SerializeField] private Color damageColor = Color.red;
+    [SerializeField] private float flashDuration = 0.15f;
+
+    private SpriteRenderer _spriteRenderer;
+    private Color _originalColor;
     private GameController _gameController;
 
     [System.Obsolete]
@@ -13,11 +21,20 @@ public class Enemy_Health : MonoBehaviour
     {
         currentHealth = maxHealth;
         _gameController = FindObjectOfType<GameController>();
+
+        // Cache SpriteRenderer for flashing
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        if (_spriteRenderer != null)
+            _originalColor = _spriteRenderer.color;
     }
 
     public void ChangeHealth(int amount)
     {
         currentHealth += amount;
+
+        // 🔥 Flash whenever damaged
+        if (amount < 0)
+            StartCoroutine(FlashDamage());
 
         if (currentHealth > maxHealth)
         {
@@ -27,6 +44,16 @@ public class Enemy_Health : MonoBehaviour
         {
             HandleDeath();
         }
+    }
+
+    private IEnumerator FlashDamage()
+    {
+        if (_spriteRenderer == null)
+            yield break;
+
+        _spriteRenderer.color = damageColor;
+        yield return new WaitForSeconds(flashDuration);
+        _spriteRenderer.color = _originalColor;
     }
 
     private void HandleDeath()
