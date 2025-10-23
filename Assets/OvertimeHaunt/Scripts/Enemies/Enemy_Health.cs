@@ -7,6 +7,7 @@ public class Enemy_Health : MonoBehaviour
 
     private GameController _gameController;
 
+    [System.Obsolete]
     void Start()
     {
         currentHealth = maxHealth;

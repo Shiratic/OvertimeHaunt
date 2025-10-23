@@ -33,6 +33,13 @@ public class GameController : MonoBehaviour
     private int _totalEnemies;
     private int _enemiesRemaining;
 
+    [SerializeField] GameObject _door;
+    [SerializeField] GameObject _door2;
+    [SerializeField] GameObject _door3;
+    [SerializeField] GameObject _door4;
+    [SerializeField] GameObject _door5;
+
+
 
 
     void Start()
@@ -77,11 +84,24 @@ public class GameController : MonoBehaviour
 
     private void AllEnemiesDefeated()
     {
-        Debug.Log("All enemies defeated! You win!");
+        if (_currentState != GameState.Playing)
+            return;
+
+        //_currentState = GameState.Won; // Prevents multiple calls
         UpdateEnemyUI();
-        DisplayWinMenu();
-        
+        OpenDoor(); // Door logic still runs
+
     }
+
+    public void RecountEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        _totalEnemies = enemies.Length;
+        _enemiesRemaining = _totalEnemies;
+
+        UpdateEnemyUI();
+    }
+
     private void Awake()
     {
 
@@ -232,6 +252,15 @@ public class GameController : MonoBehaviour
         Debug.Log("Quit!");
 
         Time.timeScale = 1f;
+    }
+
+    private void OpenDoor()
+    {
+        _door.SetActive(false);
+        _door2.SetActive(false);
+        _door3.SetActive(false);
+        _door4.SetActive(false);
+        _door5.SetActive(false);
     }
 
     private void OnAnyButtonClick(ClickEvent evt)
