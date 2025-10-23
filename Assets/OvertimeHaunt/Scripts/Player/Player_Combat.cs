@@ -9,6 +9,7 @@ public class Player_Combat : MonoBehaviour
     public float knockbackTime = .15f;
     public float stunTime = .3f;
     public LayerMask enemyLayer;
+    public LayerMask breakableLayer;
     public int damage = 1;
     [SerializeField] AudioClip _attackSound = null;
 
@@ -30,6 +31,14 @@ public class Player_Combat : MonoBehaviour
         {
             enemies[0].GetComponent<Enemy_Health>().ChangeHealth(-damage);
             enemies[0].GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime);
+        }
+
+        Collider2D[] breakables = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, breakableLayer);
+        foreach (Collider2D breakable in breakables)
+        {
+            Enemy_Health breakableHealth = breakable.GetComponent<Enemy_Health>();
+            if (breakableHealth != null)
+                breakableHealth.ChangeHealth(-damage);
         }
     }
 

@@ -1,9 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy_Health : MonoBehaviour
 {
     public int currentHealth;
     public int maxHealth;
+    public bool isBoss = false; // 👑 assign true for boss enemies
 
     private GameController _gameController;
 
@@ -24,11 +25,39 @@ public class Enemy_Health : MonoBehaviour
         }
         else if (currentHealth <= 0)
         {
-            if (_gameController != null)
-                _gameController.EnemyDefeated();
-
-            Destroy(gameObject);
-            Debug.Log("Enemy Dead");
+            HandleDeath();
         }
+    }
+
+    private void HandleDeath()
+    {
+        if (_gameController == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        // 🧩 Skip breakables entirely
+        if (CompareTag("Breakable"))
+        {
+            Destroy(gameObject);
+            Debug.Log($"{name} broken!");
+            return;
+        }
+
+        // 👑 If this is a boss, trigger the win menu
+        if (isBoss || CompareTag("Boss"))
+        {
+            _gameController.DisplayWinMenu();
+            Debug.Log("Boss defeated! Showing Win Menu.");
+        }
+        else
+        {
+            // 🧍 Regular enemy defeat behavior
+            _gameController.EnemyDefeated();
+        }
+
+        Destroy(gameObject);
+        Debug.Log($"{name} defeated!");
     }
 }

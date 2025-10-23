@@ -44,20 +44,15 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        // Existing code to find enemies
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        _totalEnemies = enemies.Length;
-        _enemiesRemaining = _totalEnemies;
+        CountEnemies();
 
         // Find UI Document for the objective display
         UIDocument objectiveDoc = GameObject.Find("ObjectiveUI").GetComponent<UIDocument>();
         VisualElement root = objectiveDoc.rootVisualElement;
 
-        // Get the label elements
         _objectiveLabel = root.Q<Label>("ObjectiveLabel");
         _enemiesLeftLabel = root.Q<Label>("EnemiesLeftLabel");
 
-        // Initialize text
         UpdateEnemyUI();
     }
 
@@ -93,12 +88,25 @@ public class GameController : MonoBehaviour
 
     }
 
+    private void CountEnemies()
+    {
+        GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        List<GameObject> realEnemies = new List<GameObject>();
+        foreach (GameObject obj in allEnemies)
+        {
+            // Ensure it’s not a breakable (some designers may accidentally use both tags)
+            if (!obj.CompareTag("Breakable"))
+                realEnemies.Add(obj);
+        }
+
+        _totalEnemies = realEnemies.Count;
+        _enemiesRemaining = _totalEnemies;
+    }
+
     public void RecountEnemies()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        _totalEnemies = enemies.Length;
-        _enemiesRemaining = _totalEnemies;
-
+        CountEnemies();
         UpdateEnemyUI();
     }
 
