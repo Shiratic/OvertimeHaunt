@@ -14,12 +14,26 @@ public class Player_Combat : MonoBehaviour
     [SerializeField] AudioClip _attackSound = null;
 
     public Animator anim;
+    public float cooldown = 0.5f;
+    private float timer;
 
+
+
+    private void Update()
+    {
+        if(timer >0)
+        {
+            timer -= Time.deltaTime;
+        }
+    }
     public void Attack()
     {
-        AudioHelper.PlayClip2D(_attackSound, 0.1f);
-        anim.SetBool("isAttacking", true);
-
+        if (timer <= 0)
+        {
+            AudioHelper.PlayClip2D(_attackSound, 0.1f);
+            anim.SetBool("isAttacking", true);
+            timer = cooldown;
+        }
       
     }
 
@@ -27,10 +41,16 @@ public class Player_Combat : MonoBehaviour
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, enemyLayer);
 
-        if (enemies.Length > 0)
+        foreach (Collider2D enemy in enemies)
         {
-            enemies[0].GetComponent<Enemy_Health>().ChangeHealth(-damage);
-            enemies[0].GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime);
+            if (enemy.isTrigger) continue;
+
+
+            if (enemies.Length > 0)
+            {
+                enemies[0].GetComponent<Enemy_Health>().ChangeHealth(-damage);
+                enemies[0].GetComponent<Enemy_Knockback>().Knockback(transform, knockbackForce, knockbackTime, stunTime);
+            }
         }
 
         Collider2D[] breakables = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, breakableLayer);
