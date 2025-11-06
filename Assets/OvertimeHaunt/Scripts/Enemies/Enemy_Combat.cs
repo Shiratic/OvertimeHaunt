@@ -9,17 +9,18 @@ public class Enemy_Combat : MonoBehaviour
     public float knockbackForce;
     public float stunTime;
     public LayerMask playerLayer;
+    [SerializeField] AudioClip hitSound = null;
 
 
 
-   /* private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-damage);
-            collision.gameObject.GetComponent<PlayerMovement>().Knockback(transform, knockbackForce, stunTime);
-        }
-    } */
+    /* private void OnCollisionEnter2D(Collision2D collision)
+     {
+         if (collision.gameObject.tag == "Player")
+         {
+             collision.gameObject.GetComponent<PlayerHealth>().ChangeHealth(-damage);
+             collision.gameObject.GetComponent<PlayerMovement>().Knockback(transform, knockbackForce, stunTime);
+         }
+     } */
 
     public void Attack()
     {
@@ -28,6 +29,7 @@ public class Enemy_Combat : MonoBehaviour
         if (hits.Length > 0)
 
         {
+            AudioHelper.PlayClip2D(hitSound, 0.2f);
             hits[0].GetComponent<PlayerHealth>().ChangeHealth(-damage);
             hits[0].GetComponent<PlayerMovement>().Knockback(transform, knockbackForce, stunTime);
 

@@ -15,6 +15,7 @@ public class Enemy_Health : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private Color _originalColor;
     private GameController _gameController;
+    
 
     [System.Obsolete]
     void Start()
@@ -81,9 +82,10 @@ public class Enemy_Health : MonoBehaviour
         else
         {
             // 🧍 Regular enemy defeat behavior
+           
             _gameController.EnemyDefeated();
         }
-
+        
         Destroy(gameObject);
         Debug.Log($"{name} defeated!");
     }

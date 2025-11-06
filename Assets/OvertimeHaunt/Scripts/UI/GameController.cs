@@ -29,6 +29,10 @@ public class GameController : MonoBehaviour
     private List<Button> _buttons = new List<Button>();
 
     private AudioSource _audioSource;
+    [SerializeField] AudioClip _winSound = null;
+    [SerializeField] AudioClip _loseSound = null;
+    [SerializeField] AudioClip _dieSound = null;
+    [SerializeField] AudioClip _doorSound = null;
 
     private int _totalEnemies;
     private int _enemiesRemaining;
@@ -69,6 +73,7 @@ public class GameController : MonoBehaviour
 
     public void EnemyDefeated()
     {
+        AudioHelper.PlayClip2D(_dieSound, 0.2f);
         _enemiesRemaining--;
         UpdateEnemyUI();
 
@@ -203,6 +208,7 @@ public class GameController : MonoBehaviour
     {
         _winMenuVisualTree.style.display = DisplayStyle.Flex;
         _currentState = GameState.Won;
+        AudioHelper.PlayClip2D(_winSound, 0.5f);
 
         if (_objectiveLabel != null)
             _objectiveLabel.style.display = DisplayStyle.None;
@@ -234,6 +240,7 @@ public class GameController : MonoBehaviour
     {
         _loseMenuVisualTree.style.display = DisplayStyle.Flex;
         _currentState = GameState.Lost;
+        AudioHelper.PlayClip2D(_loseSound, 0.5f);
 
         if (_objectiveLabel != null)
             _objectiveLabel.style.display = DisplayStyle.None;
@@ -265,6 +272,7 @@ public class GameController : MonoBehaviour
 
     private void OpenDoor()
     {
+        AudioHelper.PlayClip2D(_doorSound, 0.5f);
         _door.SetActive(false);
         _door2.SetActive(false);
         _door3.SetActive(false);

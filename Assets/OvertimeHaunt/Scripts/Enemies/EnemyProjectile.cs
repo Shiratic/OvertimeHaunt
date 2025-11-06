@@ -14,6 +14,8 @@ public class EnemyProjectile : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    [SerializeField] AudioClip hitSound = null;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,7 +31,8 @@ public class EnemyProjectile : MonoBehaviour
             PlayerMovement playerMovement = collision.GetComponent<PlayerMovement>();
 
             if (playerHealth != null)
-                playerHealth.ChangeHealth(-damage);
+                AudioHelper.PlayClip2D(hitSound, 0.2f);
+            playerHealth.ChangeHealth(-damage);
 
             if (playerMovement != null)
                 playerMovement.Knockback(transform, knockbackForce, stunTime);

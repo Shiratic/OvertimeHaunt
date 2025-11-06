@@ -9,12 +9,14 @@ public class Enemy_Ranged : Enemy_Movement
     public int damage = 1;
     public float knockbackForce = 10f;
     public float stunTime = 0.2f;
-    public AudioClip shootSound;
+    [SerializeField] AudioClip shootSound = null;
 
     private float _lastAttackTime = -Mathf.Infinity;
 
     protected override void PerformAttack()
     {
+
+       
         if (player == null || projectilePrefab == null || shootPoint == null)
             return;
 
@@ -34,6 +36,7 @@ public class Enemy_Ranged : Enemy_Movement
         anim.SetTrigger("Shoot"); // optional animation trigger
 
         // Spawn projectile
+        AudioHelper.PlayClip2D(shootSound, 0.2f);
         GameObject bullet = Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
 
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();

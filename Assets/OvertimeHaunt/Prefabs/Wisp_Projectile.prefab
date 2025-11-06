@@ -112,6 +112,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 2048
+  hitSound: {fileID: 8300000, guid: 4e2eeb912f8a52b4fabd2a630a36ecd0, type: 3}
 --- !u!50 &8214735025762526861
 Rigidbody2D:
   serializedVersion: 5
