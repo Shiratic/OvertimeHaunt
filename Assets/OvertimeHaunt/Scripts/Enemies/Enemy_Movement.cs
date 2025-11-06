@@ -22,14 +22,14 @@ public class Enemy_Movement : MonoBehaviour
 
     private float attackCooldownTimer;
     private float idleTimer;
-    private int facingDirection = -1;
+    protected int facingDirection = -1;
 
-    private Rigidbody2D rb;
-    private Transform player;
-    private Animator anim;
+    protected Rigidbody2D rb;
+    protected Transform player;
+    protected Animator anim;
     private Vector2 roamTarget;
 
-    private EnemyState enemyState;
+    protected EnemyState enemyState;
 
     void Start()
     {
@@ -60,8 +60,14 @@ public class Enemy_Movement : MonoBehaviour
                 break;
             case EnemyState.Attacking:
                 rb.linearVelocity = Vector2.zero;
+                PerformAttack();
                 break;
         }
+    }
+    protected virtual void PerformAttack()
+    {
+        // Default melee attack behavior (optional)
+        Debug.Log($"{gameObject.name} performed melee attack!");
     }
 
     bool DetectWalls()
@@ -189,7 +195,7 @@ public class Enemy_Movement : MonoBehaviour
         roamTarget = (Vector2)transform.position + randomDirection;
     }
 
-    void Flip()
+    protected void Flip()
     {
         facingDirection *= -1;
         Vector3 scale = transform.localScale;

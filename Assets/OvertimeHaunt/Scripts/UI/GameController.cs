@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject _door3;
     [SerializeField] GameObject _door4;
     [SerializeField] GameObject _door5;
+    [SerializeField] GameObject _door6;
 
 
 
@@ -269,6 +270,7 @@ public class GameController : MonoBehaviour
         _door3.SetActive(false);
         _door4.SetActive(false);
         _door5.SetActive(false);
+        _door6.SetActive(false);
     }
 
     private void OnAnyButtonClick(ClickEvent evt)

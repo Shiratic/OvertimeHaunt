@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
     public float stunTime;
 
     public LayerMask enemyLayer;
+    public LayerMask obstacleLayer;
 
     private Vector2 direction;
 
@@ -19,8 +20,7 @@ public class Bullet : MonoBehaviour
     public void Init(Vector2 dir)
     {
         direction = dir.normalized;
-        rb.linearVelocity = direction * speed;
-
+        rb.linearVelocity = direction * speed; // ← fixed field name
         RotateBullet();
         Destroy(gameObject, lifeSpawn);
     }
@@ -34,18 +34,24 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ((enemyLayer.value & (1 << collision.gameObject.layer)) > 0)
+        // ✅ Damage enemies
+        if (((1 << collision.gameObject.layer) & enemyLayer) != 0)
         {
-            var enemyHealth = collision.gameObject.GetComponent<Enemy_Health>();
+            var enemyHealth = collision.GetComponent<Enemy_Health>();
             if (enemyHealth != null)
                 enemyHealth.ChangeHealth(-damage);
 
-            var enemyKnockback = collision.gameObject.GetComponent<Enemy_Knockback>();
+            var enemyKnockback = collision.GetComponent<Enemy_Knockback>();
             if (enemyKnockback != null)
                 enemyKnockback.Knockback(transform, knockbackForce, knockbackTime, stunTime);
 
+            Destroy(gameObject);
+        }
+        // ✅ Destroy when hitting obstacles
+        else if (((1 << collision.gameObject.layer) & obstacleLayer) != 0)
+        {
             Destroy(gameObject);
         }
     }
