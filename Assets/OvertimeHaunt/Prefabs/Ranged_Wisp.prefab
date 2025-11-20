@@ -247,6 +247,7 @@ MonoBehaviour:
   isBoss: 0
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.15
+  _enemyParticle: {fileID: 8907743383146269615, guid: 2d5bd4c8b72ab3341bc751fd83448550, type: 3}
 --- !u!114 &197540527770366069
 MonoBehaviour:
   m_ObjectHideFlags: 0

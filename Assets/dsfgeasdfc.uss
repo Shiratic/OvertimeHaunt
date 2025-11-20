@@ -1,0 +1,18 @@
+.base {
+    justify-content: flex-end;
+    align-content: auto;
+    align-self: center;
+    -unity-font-definition: url("project://database/Assets/OvertimeHaunt/Fonts/UniSans-Trial-Bold.otf?fileID=12800000&guid=6c4d9d1002c128145862a60fb29c6193&type=3#UniSans-Trial-Bold");
+    -unity-font-style: bold;
+    color: rgb(255, 102, 102);
+    -unity-text-outline-width: 10px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    text-shadow: 3.1px 3.2px 0 rgb(0, 0, 0);
+    transition-duration: 0.7s;
+    opacity: 0;
+    font-size: 95px;
+}
+
+.visible {
+    opacity: 1;
+}

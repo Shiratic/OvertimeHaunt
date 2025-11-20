@@ -77,6 +77,8 @@ public class GameController : MonoBehaviour
         _enemiesRemaining--;
         UpdateEnemyUI();
 
+        FlashEnemiesLeft();
+
         if (_enemiesRemaining <= 0 && _currentState == GameState.Playing)
         {
             AllEnemiesDefeated();
@@ -123,12 +125,14 @@ public class GameController : MonoBehaviour
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
 
         //_gameplayMenuVisualTree = root.Q("GameplayMenuVisualTree");
-        _pauseMenuVisualTree = root.Q("PauseMenuVisualTree");
+        _pauseMenuVisualTree = root.Q<VisualElement>("PauseMenuVisualTree");
         _winMenuVisualTree = root.Q("WinMenuVisualTree");
         _loseMenuVisualTree = root.Q("LoseMenuVisualTree");
 
-        _objectiveLabel = root.Q<Label>("ObjectiveLabel");
-        _enemiesLeftLabel = root.Q<Label>("EnemyCountLabel");
+        
+        
+
+       
 
 
 
@@ -158,14 +162,30 @@ public class GameController : MonoBehaviour
         }
 
         //_gameplayMenuVisualTree.style.display = DisplayStyle.Flex;
-        _pauseMenuVisualTree.style.display = DisplayStyle.None;
+        //_pauseMenuVisualTree.style.display = DisplayStyle.None;
+        _pauseMenuVisualTree.AddToClassList("PauseUp");
         _winMenuVisualTree.style.display = DisplayStyle.None;
         _loseMenuVisualTree.style.display = DisplayStyle.None;
 
 
     }
 
-     void Update()
+    private void FlashEnemiesLeft()
+    {
+        if (_enemiesLeftLabel == null)
+            return;
+
+        _enemiesLeftLabel.AddToClassList("visible");
+
+        // Use a delayed call to hide it after a moment
+        _enemiesLeftLabel.schedule.Execute(() =>
+        {
+            _enemiesLeftLabel.RemoveFromClassList("visible");
+        }).StartingIn(1000); // stays visible for 1 second
+    }
+
+
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && _currentState == GameState.Playing)
         {
@@ -177,7 +197,7 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("Activate Pause Menu!");
 
-        _pauseMenuVisualTree.style.display = DisplayStyle.Flex;
+        _pauseMenuVisualTree.RemoveFromClassList("PauseUp");
         _currentState = GameState.Paused;
    
         UnityEngine.Cursor.visible = true;
@@ -197,7 +217,7 @@ public class GameController : MonoBehaviour
     private void OnResumeButtonClick(ClickEvent evt)
     {
         Debug.Log("Resume!");
-        _pauseMenuVisualTree.style.display = DisplayStyle.None;
+        _pauseMenuVisualTree.AddToClassList("PauseUp");
         _currentState = GameState.Playing;
 
         // Optional: unfreeze game time

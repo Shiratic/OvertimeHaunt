@@ -11,7 +11,7 @@ public class Enemy_Health : MonoBehaviour
     [Header("Damage Flash Settings")]
     [SerializeField] private Color damageColor = Color.red;
     [SerializeField] private float flashDuration = 0.15f;
-
+    [SerializeField] private ParticleSystem _enemyParticle;
     private SpriteRenderer _spriteRenderer;
     private Color _originalColor;
     private GameController _gameController;
@@ -35,7 +35,12 @@ public class Enemy_Health : MonoBehaviour
 
         // 🔥 Flash whenever damaged
         if (amount < 0)
-            StartCoroutine(FlashDamage());
+            if (CompareTag("Enemy"))
+            {
+                StartCoroutine(FlashDamage());
+                Instantiate(_enemyParticle, transform.position, Quaternion.identity);
+            }
+
 
         if (currentHealth > maxHealth)
         {

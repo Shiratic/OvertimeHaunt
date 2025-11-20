@@ -3,7 +3,7 @@
     <engine:Template name="LoseMenuVisualTree" src="project://database/Assets/UI%20Toolkit/LoseMenuVisualTree.uxml?fileID=9197481963319205126&amp;guid=fc0eb3e437e356041aa8a011a99865e1&amp;type=3#LoseMenuVisualTree" />
     <engine:Template name="WinMenuVisualTree" src="project://database/Assets/UI%20Toolkit/WinMenuVisualTree.uxml?fileID=9197481963319205126&amp;guid=0629b34fb4730484b97cd796444628ff&amp;type=3#WinMenuVisualTree" />
     <Style src="project://database/Assets/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=5bdda29ffe2d24643823f0cb83a89d01&amp;type=3#MainMenuStyle" />
-    <engine:Instance template="PauseMenuVisualTree" name="PauseMenuVisualTree" enabled="true" style="display: none;" />
-    <engine:Instance template="LoseMenuVisualTree" name="LoseMenuVisualTree" enabled="true" style="display: none;" />
-    <engine:Instance template="WinMenuVisualTree" name="WinMenuVisualTree" enabled="true" style="display: none;" />
+    <engine:Instance template="PauseMenuVisualTree" name="PauseMenuVisualTree" enabled="true" style="display: flex; transition-duration: 0.7s, 0.7s; transition-property: opacity, transform-origin;" />
+    <engine:Instance template="LoseMenuVisualTree" name="LoseMenuVisualTree" enabled="true" style="display: none; translate: 0 -10px; height: 82936px;" />
+    <engine:Instance template="WinMenuVisualTree" name="WinMenuVisualTree" enabled="true" style="display: none; height: 82936px; translate: 0 -10px;" />
 </engine:UXML>
