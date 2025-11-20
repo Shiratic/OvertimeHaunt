@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isKnockedBack;
     private float activeMoveSpeed;
+    [SerializeField] private ParticleSystem _dashEffect;
+    [SerializeField] private TrailRenderer tr;
     public float dashSpeed;
     [SerializeField] AudioClip _dashSound = null;
 
@@ -86,8 +88,13 @@ public class PlayerMovement : MonoBehaviour
                 if (dashCooldownCounter <= 0) 
                 {
                     AudioHelper.PlayClip2D(_dashSound, 0.1f);
+                    Instantiate(_dashEffect, transform.position, Quaternion.identity);
                     activeMoveSpeed = dashSpeed;
                     dashCounter = dashLength;
+                    
+                    tr.emitting = true;
+                   
+
                 }
             }
 
@@ -95,11 +102,13 @@ public class PlayerMovement : MonoBehaviour
             if (dashCounter > 0)
             {
                 dashCounter -= Time.deltaTime;
+                
 
                 if (dashCounter <= 0)
                 {
                     activeMoveSpeed = speed;
                     dashCooldownCounter = dashCooldown;
+                    tr.emitting = false;
                 }
             }
 
